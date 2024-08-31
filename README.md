@@ -1,2 +1,2 @@
-# Inscri-o-de-usu-rio
+# Inscription
 Projeto de Inscrição de Usuários
