@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS, JS, Prisma, ORM, Router, Express">
-    <meta name="description" content="">
+    <meta name="description" content="Projeto de Inscrição de Usuários">
     <title>User API</title>
 
-    <script type="module" src="" defer></script>
+    <script type="module" src="src/scripts/" defer></script>
 
     <link rel="stylesheet" href="src/css/style.css">
+    <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=aqb9SdV9P8oC&format=png&color=000000"
+        type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
 </head>
 <body>
+    <h1>Inserção de Usuários</h1>
+
     <form action="" method="post">
         <label for="user">Insira seu nome:</label>
         <input type="text" name="user" id="user">
@@ -19,9 +27,9 @@
         <label for="email">Insira seu E-mail:</label>
         <input type="text" name="email" id="email">
 
-        <button type="submit">Inscreva-se</button>
+        <button type="submit" id="btn">Inscreva-se</button>
     </form>
 
-    <div id="root"></div>
+    <div id="dados"></div>
 </body>
 </html>
