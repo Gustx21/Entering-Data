@@ -8,7 +8,7 @@
     <meta name="description" content="Projeto de Inscrição de Usuários">
     <title>User API</title>
 
-    <script type="module" src="src/scripts/" defer></script>
+    <script type="module" src="src/scripts/main.js" defer></script>
 
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=aqb9SdV9P8oC&format=png&color=000000"
@@ -22,10 +22,10 @@
 
     <form action="" method="post">
         <label for="user">Insira seu nome:</label>
-        <input type="text" name="user" id="user">
+        <input type="text" name="user" id="user" required>
 
         <label for="email">Insira seu E-mail:</label>
-        <input type="text" name="email" id="email">
+        <input type="text" name="email" id="email" required>
 
         <button type="submit" id="btn">Inscreva-se</button>
     </form>

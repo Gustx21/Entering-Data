@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-async function insert() {
+async function insert(name, email) {
   const newUser = await prisma.user.create({
     data: {
-      name: user,
+      name: name,
       email: email
     }
   });
@@ -15,22 +15,23 @@ async function insert() {
 async function read() {
   const users = await prisma.user.findMany();
 
-  root.innerHTML = users;
-  console.log('All users:', users);
+  // console.log('All users:', users);
+  
+  return users;
 }
 
-async function update() {
+async function update(id, requisit) {
   const updatedUser = await prisma.user.update({
-    where: { id: newUser.id },
-    data: { email: 'John Updated' }
+    where: { id: id },
+    data: { email: requisit }
   });
 
   console.log('User updated:', updatedUser);
 }
 
-async function remove() {
+async function remove(id) {
   const deletedUser = await prisma.user.delete({
-    where: { id: newUser.id },
+    where: { id: id },
   });
   console.log('User deleted:', deletedUser);
 }

@@ -1,14 +1,34 @@
-const root = document.getElementById("root").addEventListener("submit", data);
+import { insert, read, update, remove } from "./prisma.js";
 
-const user = document.getElementById("user");
-const email = document.getElementById("email");
+document.getElementById("btn").addEventListener("submit", insertData);
 
-function data() {
+function insertData(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("user").value;
+    const email = document.getElementById("email").value;
+
+    insert(name, email);
+}
+
+document.addEventListener("DOMContentLoaded", loadData);
+
+async function loadData() {
+    const divDados = document.getElementById("dados"); 
+    const dados = await read();
+    console.log(dados);
+
     const paragName = document.createElement("p");
-    paragName.textContent = user.value;
+    paragName.innerHTML = dados;
 
-    const paragEmail = document.createElement("p");
-    paragEmail.textContent = email.value;
+    divDados.appendChild(paragName);
+}
 
-    root.appendChild(paragName, paragEmail);
+function updateData(id, requisit) {
+    update(id, requisit);
+    
+}
+
+function removeData(id) {
+    remove(id);
 }
