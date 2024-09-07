@@ -18,10 +18,10 @@ async function read() {
   return users;
 }
 
-async function update(id, requisit) {
+async function update(id, dados) {
   const updatedUser = await prisma.user.update({
     where: { id: id },
-    data: { email: requisit }
+    data: dados
   });
 
   return `Usuário atualizado: ${updatedUser}`;
