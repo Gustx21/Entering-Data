@@ -9,13 +9,11 @@ async function insert(name, email) {
     }
   });
 
-  console.log(newUser);
+  return newUser;
 }
 
 async function read() {
   const users = await prisma.user.findMany();
-
-  // console.log('All users:', users);
   
   return users;
 }
@@ -26,14 +24,16 @@ async function update(id, requisit) {
     data: { email: requisit }
   });
 
-  console.log('User updated:', updatedUser);
+  return `Usuário atualizado: ${updatedUser}`;
 }
 
 async function remove(id) {
   const deletedUser = await prisma.user.delete({
-    where: { id: id },
+    where: { id: id }
   });
-  console.log('User deleted:', deletedUser);
+
+
+  return `Usuário deletado: ${deletedUser}`;
 }
 
 export { insert, read, update, remove }; 
