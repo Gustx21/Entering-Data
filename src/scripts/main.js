@@ -1,14 +1,53 @@
-const root = document.getElementById("root").addEventListener("submit", data);
+document.addEventListener("DOMContentLoaded", fetchUsers);
 
-const user = document.getElementById("user");
-const email = document.getElementById("email");
+const form = document.getElementById("form");
+const userList = document.getElementById("dados");
 
-function data() {
-    const paragName = document.createElement("p");
-    paragName.textContent = user.value;
+form.addEventListener("submit", insertData);
 
-    const paragEmail = document.createElement("p");
-    paragEmail.textContent = email.value;
+// Envia dados para o Backend
+async function insertData(event) {
+    event.preventDefault();
 
-    root.appendChild(paragName, paragEmail);
+    const formData = new FormData(form);
+    const userData = {
+        name: formData.get("user"),
+        email: formData.get("email")
+    };
+
+    try {
+        const response = await fetch("http://localhost:3030", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        });
+
+        addUserList(await response.json());
+    } catch (error) {
+        console.error("Erro ao enviar dados: ", error);
+    }
+}
+
+// Adiciona usuários à lista
+function addUserList(user) {
+    const li = document.createElement("li");
+    li.textContent = `${user.name} - ${user.email}`;
+
+    userList.appendChild(li);
+}
+
+// Buscar e exibir dados
+async function fetchUsers() {
+    try {
+        const response = await fetch("http://localhost:3030/user");
+        const users = await response.json();
+
+        users.forEach(user => addUserList(user));
+
+        window.location.reload;
+    } catch (error) {
+        console.error("Error ao buscar usuários: ", error);
+    }
 }
