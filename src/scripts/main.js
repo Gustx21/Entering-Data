@@ -1,34 +1,53 @@
-import { insert, read, update, remove } from "./prisma.js";
+document.addEventListener("DOMContentLoaded", fetchUsers);
 
-document.getElementById("btn").addEventListener("submit", insertData);
+const form = document.getElementById("form");
+const userList = document.getElementById("dados");
 
-function insertData(event) {
+form.addEventListener("submit", insertData);
+
+// Envia dados para o Backend
+async function insertData(event) {
     event.preventDefault();
 
-    const name = document.getElementById("user").value;
-    const email = document.getElementById("email").value;
+    const formData = new FormData(form);
+    const userData = {
+        name: formData.get("user"),
+        email: formData.get("email")
+    };
 
-    insert(name, email);
+    try {
+        const response = await fetch("http://localhost:3030", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        });
+
+        addUserList(await response.json());
+    } catch (error) {
+        console.error("Erro ao enviar dados: ", error);
+    }
 }
 
-document.addEventListener("DOMContentLoaded", loadData);
+// Adiciona usuários à lista
+function addUserList(user) {
+    const li = document.createElement("li");
+    li.textContent = `${user.name} - ${user.email}`;
 
-async function loadData() {
-    const divDados = document.getElementById("dados"); 
-    const dados = await read();
-    console.log(dados);
-
-    const paragName = document.createElement("p");
-    paragName.innerHTML = dados;
-
-    divDados.appendChild(paragName);
+    userList.appendChild(li);
 }
 
-function updateData(id, requisit) {
-    update(id, requisit);
-    
-}
+// Buscar e exibir dados
+async function fetchUsers() {
+    try {
+        const response = await fetch("http://localhost:3030/user");
+        const users = await response.json();
 
-function removeData(id) {
-    remove(id);
+        users.forEach(user => addUserList(user));
+
+        window.location.reload;
+    } catch (error) {
+        console.error("Error ao buscar usuários: ", error);
+    }
 }
