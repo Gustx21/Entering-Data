@@ -81,4 +81,7 @@ app.delete("/user/:id", (req, res) => {
     }
 });
 
-app.listen(3030);
+app.listen({ 
+    port: 3030,
+    host: "127.0.0.1" 
+});
