@@ -16,7 +16,7 @@ async function insertData(event) {
     };
 
     try {
-        const response = await fetch("http://localhost:3030", {
+        const response = await fetch("http://127.0.0.1:3030", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -26,7 +26,7 @@ async function insertData(event) {
 
         addUserList(await response.json());
     } catch (error) {
-        console.error("Erro ao enviar dados: ", error);
+        console.error("Erro ao enviar dados: ", error.message);
     }
 }
 
@@ -41,13 +41,13 @@ function addUserList(user) {
 // Buscar e exibir dados
 async function fetchUsers() {
     try {
-        const response = await fetch("http://localhost:3030/user");
+        const response = await fetch("http://127.0.0.1:3030/user");
         const users = await response.json();
 
         users.forEach(user => addUserList(user));
 
         window.location.reload;
     } catch (error) {
-        console.error("Error ao buscar usuários: ", error);
+        console.error("Error ao buscar usuários: ", error.message);
     }
 }
