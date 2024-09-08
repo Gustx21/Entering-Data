@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", fetchUsers);
+import { validarEmail, validarName } from "./validation";
+
+document.addEventListener("DOMContentLoaded", fetchData);
 
 const form = document.getElementById("form");
 const userList = document.getElementById("dados");
@@ -16,6 +18,15 @@ async function insertData(event) {
     };
 
     try {
+        switch (validarEmail(userData.email) || validarName(userData.name)) {
+            case 1:
+                throw new Error("Email inválido");
+            case 2:
+                throw new Error("Nome inválido");
+            default:
+                break;
+        }
+
         const response = await fetch("http://127.0.0.1:3030", {
             method: "POST",
             headers: {
@@ -43,7 +54,7 @@ function addUserList(user) {
 }
 
 // Buscar e exibir dados
-async function fetchUsers() {
+async function fetchData() {
     try {
         const response = await fetch("http://127.0.0.1:3030/user");
         const users = await response.json();
@@ -52,4 +63,32 @@ async function fetchUsers() {
     } catch (error) {
         console.error("Error ao buscar usuários: ", error.message);
     }
+}
+
+async function deleteData(event) {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    const userData = {
+        name: formData.get("user"),
+        email: formData.get("email")
+    };
+
+    try {
+        const response = await fetch("http://127.0.0.1:3030", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        });
+
+        addUserList(await response.json());
+    } catch (error) {
+        console.error("Erro ao enviar dados: ", error.message);
+    }
+
+    setTimeout(() => {
+        location.reload();
+    }, 100);
 }
