@@ -28,6 +28,10 @@ async function insertData(event) {
     } catch (error) {
         console.error("Erro ao enviar dados: ", error.message);
     }
+
+    setTimeout(() => {
+        location.reload();
+    }, 100);
 }
 
 // Adiciona usuários à lista
@@ -45,8 +49,6 @@ async function fetchUsers() {
         const users = await response.json();
 
         users.forEach(user => addUserList(user));
-
-        window.location.reload;
     } catch (error) {
         console.error("Error ao buscar usuários: ", error.message);
     }
