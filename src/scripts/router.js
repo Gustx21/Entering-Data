@@ -83,5 +83,5 @@ app.delete("/user/:id", (request, response) => {
 
 app.listen({ 
     port: 3030,
-    host: "127.0.0.1" 
+    host: "0.0.0.0" 
 });
