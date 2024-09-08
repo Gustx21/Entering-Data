@@ -1,10 +1,10 @@
 import { insert, read, update, remove } from "./prisma.js";
-import express from "express";
+import fastify from "fastify";
 import cors from "cors";
 
-const app = express();
+const app = fastify();
 
-app.use(express.json());
+app.use(fastify.json());
 app.use(cors({
     origin: "http://127.0.0.1:5700"
 }));
