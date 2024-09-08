@@ -27,7 +27,7 @@ async function insertData(event) {
                 break;
         }
 
-        const response = await fetch("http://127.0.0.1:3030", {
+        const response = await fetch("http://0.0.0.0:3030", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -56,7 +56,7 @@ function addUserList(user) {
 // Buscar e exibir dados
 async function fetchData() {
     try {
-        const response = await fetch("http://127.0.0.1:3030/user");
+        const response = await fetch("http://0.0.0.0:3030/user");
         const users = await response.json();
 
         users.forEach(user => addUserList(user));
@@ -75,7 +75,7 @@ async function deleteData(event) {
     };
 
     try {
-        const response = await fetch("http://127.0.0.1:3030", {
+        const response = await fetch("http://0.0.0.0:3030", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
