@@ -1,17 +1,17 @@
 import { insert, read, update, remove } from "./prisma.js";
-import fastify from "fastify";
+import express from "express";
 import cors from "cors";
 
-const app = fastify();
+const app = express();
 
-app.use(fastify.json());
+app.use(express.json());
 app.use(cors({
     origin: "http://127.0.0.1:5700"
 }));
 
-app.post("/", (req, res) => {
+app.post("/", (request, response) => {
     try {
-        const { name, email } = req.body;
+        const { name, email } = request.body;
     
         if (!name || !email) {
             throw {
@@ -22,14 +22,14 @@ app.post("/", (req, res) => {
 
         insert(name, email);
     
-        res.status(201).json({ message: "Usuário criado com sucesso" });
+        response.status(201).json({ message: "Usuário criado com sucesso" });
     } catch (error) {
         const statusCode = error.status || 400;
-        res.status(statusCode).send(error.message);
+        response.status(statusCode).send(error.message);
     }
 });
 
-app.get("/user", async (_, res) => {
+app.get("/user", async (_, response) => {
     try {
         const content = await read();
 
@@ -37,17 +37,17 @@ app.get("/user", async (_, res) => {
             throw new Error("Erro na leitura do dados");
         }
 
-        res.status(200).json(content);
+        response.status(200).json(content);
     } catch (error) {
         const statusCode = error.status || 401;
-        res.status(statusCode).send(error.message);
+        response.status(statusCode).send(error.message);
     }
 });
 
-app.put("/user/:id/:name/:email", (req, res) => {
+app.put("/user/:id/:name/:email", (request, response) => {
     try {
-        const name = req.params.name;
-        const email =  req.params.email;
+        const name = request.params.name;
+        const email =  request.params.email;
 
         if (!name || !email) {
             throw new Error("Nome ou Email são obrigatórios");
@@ -55,18 +55,18 @@ app.put("/user/:id/:name/:email", (req, res) => {
     
         const dados = name || email;
 
-        update(req.params.id, dados);
+        update(request.params.id, dados);
     
-        res.status(214).json({ message: "Usuário alterado com sucesso" });
+        response.status(214).json({ message: "Usuário alterado com sucesso" });
     } catch (error) {
         const statusCode = error.status;
-        res.status(statusCode).send(error.message);
+        response.status(statusCode).send(error.message);
     }
 });
 
-app.delete("/user/:id", (req, res) => {
+app.delete("/user/:id", (request, response) => {
     try {
-        const id = req.params.id;
+        const id = request.params.id;
 
         if (!id || isNaN(id)) {
             throw new Error("Identificador inválido");
@@ -74,10 +74,10 @@ app.delete("/user/:id", (req, res) => {
 
         remove(id);
         
-        res.status(200).json({ message: "Usuário deletado com sucesso" });
+        response.status(200).json({ message: "Usuário deletado com sucesso" });
     } catch (error) {
         const statusCode = error.status;
-        res.status(statusCode).send(error.message);
+        response.status(statusCode).send(error.message);
     }
 });
 
