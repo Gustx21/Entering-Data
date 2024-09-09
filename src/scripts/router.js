@@ -25,7 +25,7 @@ app.post("/", (request, response) => {
         response.status(201).json({ message: "Usuário criado com sucesso" });
     } catch (error) {
         const statusCode = error.status || 400;
-        response.status(statusCode).send(error.message);
+        response.status(statusCode).send(`Erro na inserção dos dados ao Banco: ${error.message}`);
     }
 });
 
@@ -40,7 +40,7 @@ app.get("/user", async (_, response) => {
         response.status(200).json(content);
     } catch (error) {
         const statusCode = error.status || 401;
-        response.status(statusCode).send(error.message);
+        response.status(statusCode).send(`Erro na leitura de dados no Banco: ${error.message}`);
     }
 });
 
@@ -83,5 +83,5 @@ app.delete("/user/:id", (request, response) => {
 
 app.listen({ 
     port: 3030,
-    host: "0.0.0.0" 
+    host: "localhost" 
 });
