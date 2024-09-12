@@ -14,9 +14,20 @@ async function insert(name, email) {
 
 async function read() {
   const users = await prisma.user.findMany();
-  
+
   return users;
 }
+
+async function readPosts(id) {
+  const userPosts = await prisma.post.findMany({
+    where: {
+      authorId: id
+    }
+  });
+
+  return userPosts;
+}
+
 
 async function update(id, dados) {
   const updatedUser = await prisma.user.update({
@@ -36,4 +47,4 @@ async function remove(id) {
   return `Usuário deletado: ${deletedUser}`;
 }
 
-export { insert, read, update, remove }; 
+export { insert, read, update, remove, readPosts }; 
