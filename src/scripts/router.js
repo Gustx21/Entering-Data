@@ -1,4 +1,4 @@
-import { insert, read, update, remove } from "./prisma.js";
+import { insert, read, update, remove, readPosts } from "./prisma.js";
 import express from "express";
 import cors from "cors";
 
@@ -40,7 +40,23 @@ app.get("/user", async (_, response) => {
         response.status(200).json(content);
     } catch (error) {
         const statusCode = error.status || 401;
-        response.status(statusCode).send(`Erro na leitura de dados no Banco: ${error.message}`);
+        response.status(statusCode).send(`Erro na leitura de dados do Usuário: ${error.message}`);
+    }
+});
+
+app.get("user/:id/posts", async (request, response) => {
+    try {
+        const posts = readPosts(request.params.id);
+
+        if (!posts) {
+            throw new Error("Nenhum Posts encontrado");
+        }
+
+        response.status(200).json(posts);
+    } catch (error) {
+        const statusCode = error.status || 404;
+        response.status(statusCode).send(`Erro na leitura dos Posts: ${error.message}`);
+        
     }
 });
 
