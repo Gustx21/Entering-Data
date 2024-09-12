@@ -33,11 +33,21 @@ async function insertData(event) {
 }
 
 // Adiciona usuários à lista
-function addUserList(user) {
-    const li = document.createElement("li");
-    li.textContent = `${user.name} - ${user.email}`;
+async function addUserList(user) {
+    const card = document.createElement("div");
 
-    userList.appendChild(li);
+    const h3 = document.createElement("h3");
+    h3.textContent = `Oi, eu sou ${user.name}!`;
+
+    const content = document.createElement("p");
+    content.innerText = await fetchPosts(user.id);
+
+    const contato = document.createElement("p");
+    contato.innerText = user.email;
+
+    card.append(h3, content, contato);
+
+    userList.appendChild(card);
 }
 
 // Buscar e exibir dados
@@ -52,8 +62,19 @@ async function fetchData() {
     }
 }
 
+async function fetchPosts(id) {
+    try {
+        const response = await fetch(`http://localhost:3030/user/${id}/posts`);
+        const posts = await response.json();
+
+        return posts;
+    } catch (error) {
+        console.error("Erro ao buscar Posts do Usuário: ", error.message);
+    }
+}
+
 // Remover dados
-async function deleteData() {
+async function deleteData(id) {
     try {
         const id = document;
         
