@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5700",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "node ./src/scripts/router.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
