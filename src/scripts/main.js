@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", fetchUsers);
+document.addEventListener("DOMContentLoaded", fetchData);
 
-const form = document.getElementById("form");
+const form = document.getElementById("form-principal");
 const userList = document.getElementById("dados");
 
 form.addEventListener("submit", insertData);
@@ -16,18 +16,20 @@ async function insertData(event) {
     };
 
     try {
-        const response = await fetch("http://localhost:3030", {
+        await fetch("http://localhost:3030", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(userData)
         });
-
-        addUserList(await response.json());
     } catch (error) {
-        console.error("Erro ao enviar dados: ", error);
+        console.error("Erro ao enviar dados: ", error.message);
     }
+
+    setTimeout(() => {
+        location.reload();
+    }, 100);
 }
 
 // Adiciona usuários à lista
@@ -39,15 +41,30 @@ function addUserList(user) {
 }
 
 // Buscar e exibir dados
-async function fetchUsers() {
+async function fetchData() {
     try {
         const response = await fetch("http://localhost:3030/user");
         const users = await response.json();
 
         users.forEach(user => addUserList(user));
-
-        window.location.reload;
     } catch (error) {
-        console.error("Error ao buscar usuários: ", error);
+        console.error("Error ao buscar usuários: ", error.message);
+    }
+}
+
+// Remover dados
+async function deleteData() {
+    try {
+        const id = document;
+        
+        await fetch(`http://localhost:3030/user/${id}`, {
+            method: "DELETE"
+        });
+
+        setTimeout(() => {
+            location.reload();
+        }, 100);
+    } catch (error) {
+        console.error("Erro ao remover dados: ", error.message);
     }
 }
