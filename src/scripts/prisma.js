@@ -35,7 +35,7 @@ async function update(id, dados) {
     data: dados
   });
 
-  return `Usuário atualizado: ${updatedUser}`;
+  return updatedUser;
 }
 
 async function remove(id) {
@@ -44,7 +44,7 @@ async function remove(id) {
   });
 
 
-  return `Usuário deletado: ${deletedUser}`;
+  return deletedUser;
 }
 
 export { insert, read, update, remove, readPosts }; 
