@@ -13,9 +13,26 @@ async function insert(name, email) {
 }
 
 async function read() {
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany({
+    include: {
+      posts: true
+    }
+  });
 
   return users;
+}
+
+async function readIdUser(id) {
+  const userId = await prisma.user.findMany({
+    where: {
+      id: id
+    },
+    include: {
+      posts: true
+    }
+  })
+
+  return userId;
 }
 
 async function readPosts(id) {
