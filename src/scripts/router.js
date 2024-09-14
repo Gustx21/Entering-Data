@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { insert, read, update, remove, readPosts } from "./prisma.js";
-=======
-import { insert, read, update, remove } from "./prisma.js";
->>>>>>> 88ad7f348aa393e961442010a112bea53bd2958f
 import express from "express";
 import cors from "cors";
 
@@ -44,7 +40,6 @@ app.get("/user", async (_, response) => {
         response.status(200).json(content);
     } catch (error) {
         const statusCode = error.status || 401;
-<<<<<<< HEAD
         response.status(statusCode).send(`Erro na leitura de dados do Usuário: ${error.message}`);
     }
 });
@@ -62,9 +57,6 @@ app.get("user/:id/posts", async (request, response) => {
         const statusCode = error.status || 404;
         response.status(statusCode).send(`Erro na leitura dos Posts: ${error.message}`);
         
-=======
-        response.status(statusCode).send(`Erro na leitura de dados no Banco: ${error.message}`);
->>>>>>> 88ad7f348aa393e961442010a112bea53bd2958f
     }
 });
 
