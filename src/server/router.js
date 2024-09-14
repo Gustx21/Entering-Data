@@ -9,6 +9,37 @@ app.use(cors({
     origin: "http://127.0.0.1:5700"
 }));
 
+app.get("/user", async (_, response) => {
+    try {
+        const content = await read();
+        
+        if (!content) {
+            throw new Error("Erro na leitura do dados");
+        }
+        
+        response.status(200).json(content);
+    } catch (error) {
+        const statusCode = error.status || 404;
+        response.status(statusCode).json(`Erro na leitura de dados do Usuário: ${error.message}`);
+    }
+});
+
+app.get("/user/:id/posts", async (request, response) => {
+    try {
+        const posts = await readPosts(request.params.id);
+        
+        if (!posts) {
+            throw new Error("Erro na leitura do dados");
+        }
+        
+        response.status(200).json(posts);
+    } catch (error) {
+        const statusCode = error.status || 404;
+        response.status(statusCode).json(`Erro na leitura dos Posts: ${error.message}`);
+        
+    }
+});
+
 app.post("/", async (request, response) => {
     try {
         const { name, email } = request.body;
@@ -29,40 +60,9 @@ app.post("/", async (request, response) => {
     }
 });
 
-app.get("/user", async (_, response) => {
-    try {
-        const content = await read();
-
-        if (!content) {
-            throw new Error("Erro na leitura do dados");
-        }
-
-        response.status(200).json(content);
-    } catch (error) {
-        const statusCode = error.status || 404;
-        response.status(statusCode).json(`Erro na leitura de dados do Usuário: ${error.message}`);
-    }
-});
-
-app.get("/user/:id/posts", async (request, response) => {
-    try {
-        const userId = request.params.id
-        const posts = await readPosts(userId);
-
-        if (!userId || !posts) {
-            throw new Error("Erro na leitura do dados");
-        }
-
-        response.status(200).json(posts);
-    } catch (error) {
-        const statusCode = error.status || 404;
-        response.status(statusCode).json(`Erro na leitura dos Posts: ${error.message}`);
-        
-    }
-});
-
 app.put("/user/:id/:name/:email", (request, response) => {
     try {
+        const id = request.params.id;
         const name = request.params.name;
         const email =  request.params.email;
 
@@ -72,7 +72,7 @@ app.put("/user/:id/:name/:email", (request, response) => {
     
         const dados = name || email;
 
-        update(request.params.id, dados);
+        update(id, dados);
     
         response.status(214).json({ message: "Usuário alterado com sucesso" });
     } catch (error) {
