@@ -34,13 +34,15 @@ async function insertData(event) {
 
 // Adiciona usuários à lista
 async function addUserList(user) {
+    
     const card = document.createElement("div");
-
+    
     const h3 = document.createElement("h3");
     h3.textContent = `Oi, eu sou ${user.name}!`;
-
+    
     const content = document.createElement("p");
-    content.innerText = await fetchPosts(user.id);
+    const posts =  await fetchPosts(user.id);
+    posts.forEach(post => content.innerText = post.content);
 
     const contato = document.createElement("p");
     contato.innerText = user.email;
