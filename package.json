@@ -7,11 +7,7 @@
     "dev": "vite --host 127.0.0.1 --port 5700",
     "build": "vite build",
     "preview": "vite preview",
-<<<<<<< HEAD
     "server": "node ./src/server/router.js"
-=======
-    "server": "node ./src/scripts/router.js"
->>>>>>> 88ad7f348aa393e961442010a112bea53bd2958f
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
