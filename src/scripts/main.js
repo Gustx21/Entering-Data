@@ -24,7 +24,7 @@ async function insertData(event) {
             body: JSON.stringify(userData)
         });
     } catch (error) {
-        console.error("Erro ao enviar dados: ", error.message);
+        console.error(error.message);
     }
 
     setTimeout(() => {
@@ -58,7 +58,7 @@ async function fetchData() {
 
         users.forEach(user => addUserList(user));
     } catch (error) {
-        console.error("Error ao buscar usuários: ", error.message);
+        console.error(error.message);
     }
 }
 
@@ -69,7 +69,7 @@ async function fetchPosts(id) {
 
         return posts;
     } catch (error) {
-        console.error("Erro ao buscar Posts do Usuário: ", error.message);
+        console.error(error.message);
     }
 }
 
@@ -86,6 +86,6 @@ async function deleteData(id) {
             location.reload();
         }, 100);
     } catch (error) {
-        console.error("Erro ao remover dados: ", error.message);
+        console.error(error.message);
     }
 }
