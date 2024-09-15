@@ -24,6 +24,18 @@ app.get("/user", async (_, response) => {
     }
 });
 
+app.get("/user/:id", async (request, response) => {
+    try {
+        const userId = readIdUser(request.params.id);
+
+        response.status(200).json(userId);
+    } catch (error) {
+        const statusCode = error.status || 404;
+        response.status(statusCode).json(`Erro ao encontrar usuário ${error.message}`);
+        
+    }
+});
+
 app.get("/user/:id/posts", async (request, response) => {
     try {
         const posts = await readPosts(request.params.id);

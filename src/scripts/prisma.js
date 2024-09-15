@@ -64,4 +64,4 @@ async function remove(id) {
   return deletedUser;
 }
 
-export { insert, read, update, remove, readPosts }; 
+export { insert, read, update, remove, readPosts, readIdUser };
