@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS, JS, Prisma, ORM, Router, Express">
     <meta name="description" content="Projeto de Inscrição de Usuários">
-    <title>User API</title>
+    <title>Inscrição de usuários</title>
 
     <script type="module" src="src/scripts/main.js" defer></script>
 
@@ -18,37 +18,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header id="anchors">
-        <menu>
-            <nav>
-                <a href="#" id="menu">Início</a>
-                <a href="#" id="menu">Empresa</a>
-                <a href="#" id="menu">Contatos</a>
-            </nav>
-        </menu>
+    <nav>
+        <a href="#" id="menu">Início</a>
+        <a href="#" id="menu">Empresa</a>
+        <a href="#" id="menu">Contatos</a>
+    </nav>
 
-        <h1 id="title">Inserção de Usuários</h1>
+    <header>
+        <h1>Inserção de Usuários</h1>
     </header>
 
     <form action="" method="post" id="form-principal">
-        <header id="content">
-            <h2>Prisma</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores quibusdam molestiae vel sequi eos dolorem unde omnis ipsum maxime distinctio quasi maiores, tempora magni enim officiis, hic eaque est at?</p>
+        <div class="dados">
+            <label for="user">Insira seu nome:</label>
+            <input type="text" name="nome" id="nome" placeholder="Ex.: Fulano">
 
-            <img src="https://img.icons8.com/?size=100&id=aqb9SdV9P8oC&format=png&color=000000" alt="Logo do Prisma ORM" width="4%">
+            <label for="sobrenome">Insira seu sobrenome:</label>
+            <input type="text" name="sobrenome" id="sobrenome" placeholder="Ex.: Silva">
+
+            <label for="email">Insira seu e-mail:</label>
+            <input type="text" name="email" id="email" placeholder="Fulano@gmail.com">
+
+            <textarea name="biografia" id="biografia" cols="30" rows="5" placeholder="Digite sua biografia"></textarea>
+        </div>
+
+        <header>
+            <h1>Cadastre o seu endereço</h1>
+            <p>Preencha os campos solicitados para enviarmos seu produto</p>
         </header>
 
-        <main id="form">
-            <img src="https://img.icons8.com/?size=100&id=aqb9SdV9P8oC&format=png&color=000000" alt="Logo do Prisma ORM" width="4%">
+        <div class="endereco">
+            <input type="number" name="CEP" id="CEP" placeholder="Digite seu CEP">
+            <input type="text" name="rua" id="rua" placeholder="Rua">
+            <input type="text" name="complemento" id="complemento" placeholder="Complemento">
+            <input type="text" name="cidade" id="cidade" placeholder="Cidade">
+            <input type="number" name="res" id="res" placeholder="Número residêncial">
+            <input type="text" name="bairro" id="bairro" placeholder="Bairro">
+            <input type="text" name="UF" id="UF" placeholder="UF">
+        </div>
 
-            <label for="user">Insira seu nome:</label>
-            <input type="text" name="user" id="user" required>
-    
-            <label for="email">Insira seu E-mail:</label>
-            <input type="text" name="email" id="email" required>
-    
-            <button type="submit" id="btn">Inscreva-se</button>
-        </main>
+        <button type="submit" id="btn">Inscreva-se</button>
     </form>
 
     <h2>Usuários Cadastrados</h2>
