@@ -18,7 +18,7 @@ model User {
 
 model Address {
   id           String  @id @default(auto()) @map("_id") @db.ObjectId
-  CEP          String
+  CEP          String  @unique
   state        String
   city         String
   neighborhood String

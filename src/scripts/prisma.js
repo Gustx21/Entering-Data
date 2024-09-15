@@ -35,14 +35,14 @@ async function readIdUser(id) {
   return userId;
 }
 
-async function readPosts(id) {
-  const userPosts = await prisma.post.findMany({
+async function readPosts(CEP) {
+  const userAddress = await prisma.address.findMany({
     where: {
-      authorId: id
+      CEP: CEP
     }
   });
 
-  return userPosts;
+  return userAddress;
 }
 
 

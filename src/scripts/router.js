@@ -44,7 +44,7 @@ app.get("/user", async (_, response) => {
     }
 });
 
-app.get("user/:id/posts", async (request, response) => {
+app.get("user/:id/address", async (request, response) => {
     try {
         const posts = readPosts(request.params.id);
 

@@ -42,8 +42,8 @@ async function addUserList(user) {
     h3.textContent = `Oi, eu sou ${user.name}!`;
     
     const content = document.createElement("p");
-    const posts =  user.posts;
-    posts.forEach(post => content.innerText = post.content);
+    //const userAddress =  user.address;
+    //userAddress.forEach(adress => content.innerText = address.content);
 
     const contato = document.createElement("p");
     contato.innerText = user.email;
@@ -65,9 +65,9 @@ async function fetchData() {
     }
 }
 
-async function fetchPosts(id) {
+async function fetchAddress(cep) {
     try {
-        const response = await fetch(`http://localhost:3030/user/${id}/posts`);
+        const response = await fetch(`http://localhost:3030/user/${cep}/address`);
         const posts = await response.json();
 
         return posts;
