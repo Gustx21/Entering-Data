@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-async function insert(name, email) {
+async function insertUser(name, email) {
   const newUser = await prisma.user.create({
     data: {
       name: name,
@@ -12,10 +12,10 @@ async function insert(name, email) {
   return newUser;
 }
 
-async function read() {
+async function readUser() {
   const users = await prisma.user.findMany({
     include: {
-      posts: true
+      address: true
     }
   });
 
@@ -28,14 +28,14 @@ async function readIdUser(id) {
       id: id
     },
     include: {
-      posts: true
+      address: true
     }
   })
 
   return userId;
 }
 
-async function readPosts(CEP) {
+async function readAddress(CEP) {
   const userAddress = await prisma.address.findMany({
     where: {
       CEP: CEP
@@ -46,7 +46,7 @@ async function readPosts(CEP) {
 }
 
 
-async function update(id, dados) {
+async function updateUser(id, dados) {
   const updatedUser = await prisma.user.update({
     where: { id: id },
     data: dados
@@ -55,7 +55,7 @@ async function update(id, dados) {
   return updatedUser;
 }
 
-async function remove(id) {
+async function removeUser(id) {
   const deletedUser = await prisma.user.delete({
     where: { id: id }
   });
@@ -64,4 +64,4 @@ async function remove(id) {
   return deletedUser;
 }
 
-export { insert, read, update, remove, readPosts, readIdUser };
+export { insertUser, readUser, updateUser, removeUser, readAddress, readIdUser };

@@ -1,4 +1,4 @@
-import { insert, read, update, remove, readPosts } from "./prisma.js";
+import { insertUser, readUser, updateUser, removeUser, readAddress } from "./prisma.js";
 import express from "express";
 import cors from "cors";
 
@@ -20,7 +20,7 @@ app.post("/", (request, response) => {
             };
         }
 
-        insert(name, email);
+        insertUser(name, email);
     
         response.status(201).json({ message: "Usuário criado com sucesso" });
     } catch (error) {
@@ -31,7 +31,7 @@ app.post("/", (request, response) => {
 
 app.get("/user", async (_, response) => {
     try {
-        const content = await read();
+        const content = await readUser();
 
         if (!content) {
             throw new Error("Erro na leitura do dados");
@@ -46,13 +46,13 @@ app.get("/user", async (_, response) => {
 
 app.get("user/:id/address", async (request, response) => {
     try {
-        const posts = readPosts(request.params.id);
+        const address = readAddress(request.params.id);
 
-        if (!posts) {
-            throw new Error("Nenhum Posts encontrado");
+        if (!address) {
+            throw new Error("Nenhum endereço encontrado");
         }
 
-        response.status(200).json(posts);
+        response.status(200).json(address);
     } catch (error) {
         const statusCode = error.status || 404;
         response.status(statusCode).send(`Erro na leitura dos Posts: ${error.message}`);
@@ -71,7 +71,7 @@ app.put("/user/:id/:name/:email", (request, response) => {
     
         const dados = name || email;
 
-        update(request.params.id, dados);
+        updateUser(request.params.id, dados);
     
         response.status(214).json({ message: "Usuário alterado com sucesso" });
     } catch (error) {
@@ -88,7 +88,7 @@ app.delete("/user/:id", (request, response) => {
             throw new Error("Identificador inválido");
         }
 
-        remove(id);
+        removeUser(id);
         
         response.status(200).json({ message: "Usuário deletado com sucesso" });
     } catch (error) {
