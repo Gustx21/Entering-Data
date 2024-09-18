@@ -35,15 +35,10 @@ async function insertData(event) {
 
 // Adiciona usuários à lista
 async function addUserList(user) {
-    
     const card = document.createElement("div");
     
     const h3 = document.createElement("h3");
     h3.textContent = `Oi, eu sou ${user.name}!`;
-    
-    const content = document.createElement("p");
-    //const userAddress =  user.address;
-    //userAddress.forEach(adress => content.innerText = address.content);
 
     const contato = document.createElement("p");
     contato.innerText = user.email;
@@ -60,17 +55,6 @@ async function fetchData() {
         const users = await response.json();
 
         users.forEach(user => addUserList(user));
-    } catch (error) {
-        console.error(error.message);
-    }
-}
-
-async function fetchAddress(cep) {
-    try {
-        const response = await fetch(`http://localhost:3030/user/${cep}/address`);
-        const posts = await response.json();
-
-        return posts;
     } catch (error) {
         console.error(error.message);
     }

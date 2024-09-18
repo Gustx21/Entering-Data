@@ -20,7 +20,7 @@ app.get("/user", async (_, response) => {
         response.status(200).json(content);
     } catch (error) {
         const statusCode = error.status || 404;
-        response.status(statusCode).json(`Erro na leitura de dados do Usuário: ${error.message}`);
+        response.status(statusCode).json({ message:`Erro na leitura de dados do Usuário: ${error.message}` });
     }
 });
 
@@ -31,23 +31,23 @@ app.get("/user/:id", async (request, response) => {
         response.status(200).json(userId);
     } catch (error) {
         const statusCode = error.status || 404;
-        response.status(statusCode).json(`Erro ao encontrar usuário ${error.message}`);
+        response.status(statusCode).json({ message:`Erro ao encontrar usuário ${error.message}` });
         
     }
 });
 
-app.get("/user/:id/posts", async (request, response) => {
+app.get("/user/:id/address", async (request, response) => {
     try {
-        const posts = await readPosts(request.params.id);
+        const address = await readPosts(request.params.id);
         
-        if (!posts) {
+        if (!address) {
             throw new Error("Erro na leitura do dados");
         }
         
-        response.status(200).json(posts);
+        response.status(200).json(address);
     } catch (error) {
         const statusCode = error.status || 404;
-        response.status(statusCode).json(`Erro na leitura dos Posts: ${error.message}`);
+        response.status(statusCode).json({ message: `Erro na leitura dos Posts: ${error.message}` });
         
     }
 });
@@ -63,12 +63,12 @@ app.post("/", async (request, response) => {
             };
         }
 
-        await insert(name, email);
+        insert(name, email);
     
         response.status(201).json({ message: "Usuário criado com sucesso" });
     } catch (error) {
         const statusCode = error.status || 400;
-        response.status(statusCode).json(`Erro na inserção dos dados ao Banco: ${error.message}`);
+        response.status(statusCode).json({ message: `Erro na inserção dos dados ao Banco: ${error.message}` });
     }
 });
 
@@ -89,7 +89,7 @@ app.put("/user/:id/:name/:email", (request, response) => {
         response.status(214).json({ message: "Usuário alterado com sucesso" });
     } catch (error) {
         const statusCode = error.status;
-        response.status(statusCode).json(error.message);
+        response.status(statusCode).json({ message: `Erro ao alterar os dados do usuário: ${error.message}` });
     }
 });
 
@@ -106,7 +106,7 @@ app.delete("/user/:id", (request, response) => {
         response.status(200).json({ message: "Usuário deletado com sucesso" });
     } catch (error) {
         const statusCode = error.status;
-        response.status(statusCode).json(error.message);
+        response.status(statusCode).json({ message: `Erro na remoção do usuário: ${error.message}`});
     }
 });
 
