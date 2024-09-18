@@ -2,7 +2,7 @@
  Projeto de Inscrição de Usuários a partir de uma página HTML e enviado pela requisição de uma API Prisma que envia dados ao Banco de Dados.
 
 ## Objetivo
- O intuito desse projeto é destinado à prática de uso de uma ORM Prisma junto com uma Rota API com Express enviar dados ao Banco de Dados não-Relacional.
+ A página inicial tem a inserção dos dados do usuário no cadastro, também estilizado com CSS. Mas basicamente o intuito desse projeto é destinado à prática de uso de uma ORM Prisma junto com uma Rota API com Express enviar dados ao Banco de Dados não-Relacional. Além de lidar com a API ViaCep para corrigir o endereço do usuário e adicionar no cadastro.
 
 ## Tecnologia
 - HTML5
@@ -11,9 +11,9 @@
 - Express
 - Prisma e Prisma/Client
 - MongoDB
-- Eslint
 - Vite
 - Cors
+- ViaCep
 
 ### Contribuição
  Contribuições são bem-vindas! Sinta-se à vontade para melhorar a estrutura, adicionar funcionalidades ou corrigir qualquer problema identificado.
