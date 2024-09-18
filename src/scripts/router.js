@@ -1,4 +1,4 @@
-import { insertUser, readUser, updateUser, removeUser, readAddress } from "./prisma.js";
+import { insertUser, readUser, updateUser, removeUser, readAddress } from "../scripts/prisma.js";
 import express from "express";
 import cors from "cors";
 
@@ -44,9 +44,9 @@ app.get("/user", async (_, response) => {
     }
 });
 
-app.get("user/:id/address", async (request, response) => {
+app.get("user/:cep/address", async (request, response) => {
     try {
-        const address = readAddress(request.params.id);
+        const address = readAddress(request.params.cep);
 
         if (!address) {
             throw new Error("Nenhum endereço encontrado");
@@ -55,7 +55,7 @@ app.get("user/:id/address", async (request, response) => {
         response.status(200).json(address);
     } catch (error) {
         const statusCode = error.status || 404;
-        response.status(statusCode).send(`Erro na leitura dos Posts: ${error.message}`);
+        response.status(statusCode).send(`Erro na leitura dos endereço: ${error.message}`);
         
     }
 });
