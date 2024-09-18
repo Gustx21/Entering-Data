@@ -1,4 +1,4 @@
-import { insert, read, update, remove, readPosts } from "../scripts/prisma.js";
+import { insertUser, readUser, updateUser, removeUser, readAddress, readIdUser } from "../scripts/prisma.js";
 import express from "express";
 import cors from "cors";
 
@@ -9,50 +9,7 @@ app.use(cors({
     origin: "http://127.0.0.1:5700"
 }));
 
-app.get("/user", async (_, response) => {
-    try {
-        const content = await read();
-        
-        if (!content) {
-            throw new Error("Erro na leitura do dados");
-        }
-        
-        response.status(200).json(content);
-    } catch (error) {
-        const statusCode = error.status || 404;
-        response.status(statusCode).json({ message:`Erro na leitura de dados do Usuário: ${error.message}` });
-    }
-});
-
-app.get("/user/:id", async (request, response) => {
-    try {
-        const userId = readIdUser(request.params.id);
-
-        response.status(200).json(userId);
-    } catch (error) {
-        const statusCode = error.status || 404;
-        response.status(statusCode).json({ message:`Erro ao encontrar usuário ${error.message}` });
-        
-    }
-});
-
-app.get("/user/:id/address", async (request, response) => {
-    try {
-        const address = await readPosts(request.params.id);
-        
-        if (!address) {
-            throw new Error("Erro na leitura do dados");
-        }
-        
-        response.status(200).json(address);
-    } catch (error) {
-        const statusCode = error.status || 404;
-        response.status(statusCode).json({ message: `Erro na leitura dos Posts: ${error.message}` });
-        
-    }
-});
-
-app.post("/", async (request, response) => {
+app.post("/", (request, response) => {
     try {
         const { name, email } = request.body;
     
@@ -63,18 +20,63 @@ app.post("/", async (request, response) => {
             };
         }
 
-        insert(name, email);
+        insertUser(name, email);
     
         response.status(201).json({ message: "Usuário criado com sucesso" });
     } catch (error) {
         const statusCode = error.status || 400;
-        response.status(statusCode).json({ message: `Erro na inserção dos dados ao Banco: ${error.message}` });
+        response.status(statusCode).send(`Erro na inserção dos dados ao Banco: ${error.message}`);
+    }
+});
+
+app.get("/user", async (_, response) => {
+    try {
+        const content = await readUser();
+
+        if (!content) {
+            throw new Error("Nenhum usuário encontrado");
+        }
+
+        response.status(200).json(content);
+    } catch (error) {
+        const statusCode = error.status || 401;
+        response.status(statusCode).send(`Erro na leitura de dados do Usuário: ${error.message}`);
+    }
+});
+
+app.get("/user/:id", async (request, response) => {
+    try {
+        const idUser = readIdUser(request.params.id);
+
+        if (!idUser) {
+            throw new Error("Nenhum usuário encontrado");
+        }
+
+        response.status(200).json(idUser);
+    } catch (error) {
+        const statusCode = error.status || 404;
+        response.status(statusCode).send(`Erro ao encontrar o usuário específico: ${error.message}`);
+    }
+});
+
+app.get("user/:cep/address", async (request, response) => {
+    try {
+        const address = readAddress(request.params.cep);
+
+        if (!address) {
+            throw new Error("Nenhum endereço encontrado");
+        }
+
+        response.status(200).json(address);
+    } catch (error) {
+        const statusCode = error.status || 404;
+        response.status(statusCode).send(`Erro na leitura dos endereço: ${error.message}`);
+        
     }
 });
 
 app.put("/user/:id/:name/:email", (request, response) => {
     try {
-        const id = request.params.id;
         const name = request.params.name;
         const email =  request.params.email;
 
@@ -84,12 +86,12 @@ app.put("/user/:id/:name/:email", (request, response) => {
     
         const dados = name || email;
 
-        update(id, dados);
+        updateUser(request.params.id, dados);
     
-        response.status(214).json({ message: "Usuário alterado com sucesso" });
+        response.status(214).send("Usuário alterado com sucesso");
     } catch (error) {
         const statusCode = error.status;
-        response.status(statusCode).json({ message: `Erro ao alterar os dados do usuário: ${error.message}` });
+        response.status(statusCode).send(error.message);
     }
 });
 
@@ -97,16 +99,16 @@ app.delete("/user/:id", (request, response) => {
     try {
         const id = request.params.id;
 
-        if (!id || isNaN(id)) {
+        if (!id) {
             throw new Error("Identificador inválido");
         }
 
-        remove(id);
+        removeUser(id);
         
-        response.status(200).json({ message: "Usuário deletado com sucesso" });
+        response.status(200).send("Usuário deletado com sucesso");
     } catch (error) {
         const statusCode = error.status;
-        response.status(statusCode).json({ message: `Erro na remoção do usuário: ${error.message}`});
+        response.status(statusCode).send(error.message);
     }
 });
 
