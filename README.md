@@ -1,7 +1,6 @@
 ![Ícone do Prisma](https://img.icons8.com/?size=100&id=zJh5Gyrd6ZKu&format=png&color=000000)
 ![Ícone do MongoDB](https://img.icons8.com/?size=100&id=bosfpvRzNOG8&format=png&color=000000)
 ![Ícone de JavaScript](https://img.icons8.com/?size=100&id=108784&format=png&color=000000)
-![Ícone de HTTPS](https://img.icons8.com/?size=100&id=Dr6ZRXLR8tfR&format=png&color=FFFFFF)
 ![Ícone do Vite](https://img.icons8.com/?size=100&id=dJjTWMogzFzg&format=png&color=000000)
 
 # User Data Project
@@ -18,7 +17,6 @@ CSS3 | Prisma
 JS | Prisma/Client
  ... | cors
 
- 
 
 Banco de Dados | Ferramentas
 :---: | :---:
